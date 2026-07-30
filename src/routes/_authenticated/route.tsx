@@ -46,7 +46,12 @@ const NAV: NavItem[] = [
     icon: Ambulance,
     roles: ["donor", "hospital", "blood_bank", "admin"],
   },
-  { to: "/donors", label: "Donor network", icon: Users, roles: ["hospital", "blood_bank", "admin"] },
+  {
+    to: "/donors",
+    label: "Donor network",
+    icon: Users,
+    roles: ["hospital", "blood_bank", "admin"],
+  },
   { to: "/inventory", label: "Inventory", icon: Droplets, roles: ["blood_bank", "admin"] },
   {
     to: "/appointments",
@@ -167,7 +172,9 @@ function AuthenticatedLayout() {
               ))}
         </nav>
         <div className="border-t border-sidebar-border p-4">
-          <p className="truncate text-sm font-medium">{account.data?.profile?.full_name || user?.email}</p>
+          <p className="truncate text-sm font-medium">
+            {account.data?.profile?.full_name || user?.email}
+          </p>
           <p className="text-xs text-sidebar-foreground/60">
             {role ? ROLE_LABEL[role] : "Setting up\u2026"}
           </p>

@@ -104,7 +104,10 @@ function Landing() {
               </Link>
             </Button>
             <Button asChild size="sm">
-              <Link to={user ? "/dashboard" : "/auth"} search={user ? undefined : { mode: "signup" }}>
+              <Link
+                to={user ? "/dashboard" : "/auth"}
+                search={user ? undefined : { mode: "signup" }}
+              >
                 {user ? "Open dashboard" : "Join the network"}
               </Link>
             </Button>

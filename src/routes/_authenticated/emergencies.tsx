@@ -150,7 +150,11 @@ function Emergencies() {
               </div>
               <div className="flex gap-2 pt-1">
                 {e.status === "open" && role !== "hospital" && (
-                  <Button size="sm" onClick={() => respond.mutate(e.id)} disabled={respond.isPending}>
+                  <Button
+                    size="sm"
+                    onClick={() => respond.mutate(e.id)}
+                    disabled={respond.isPending}
+                  >
                     {respond.isPending && <Loader2 className="mr-2 size-4 animate-spin" />}
                     Accept request
                   </Button>

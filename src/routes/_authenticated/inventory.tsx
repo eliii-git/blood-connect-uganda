@@ -81,7 +81,10 @@ function Inventory() {
 
   const update = useMutation({
     mutationFn: async ({ id, value }: { id: string; value: number }) => {
-      const { error } = await supabase.from("blood_inventory").update({ units: value }).eq("id", id);
+      const { error } = await supabase
+        .from("blood_inventory")
+        .update({ units: value })
+        .eq("id", id);
       if (error) throw error;
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["inventory", bankId] }),
@@ -132,11 +135,22 @@ function Inventory() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="u">Units</Label>
-              <Input id="u" type="number" min={0} value={units} onChange={(e) => setUnits(e.target.value)} />
+              <Input
+                id="u"
+                type="number"
+                min={0}
+                value={units}
+                onChange={(e) => setUnits(e.target.value)}
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="x">Expiry date</Label>
-              <Input id="x" type="date" value={expiry} onChange={(e) => setExpiry(e.target.value)} />
+              <Input
+                id="x"
+                type="date"
+                value={expiry}
+                onChange={(e) => setExpiry(e.target.value)}
+              />
             </div>
             <div className="flex items-end">
               <Button className="w-full" onClick={() => add.mutate()} disabled={add.isPending}>

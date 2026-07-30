@@ -54,7 +54,7 @@ function Directory() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex flex-wrap items-center gap-2">
-                <Badge variant="outline">{h.level ?? "Facility"}</Badge>
+                <Badge variant="outline">Hospital</Badge>
                 {h.phone && (
                   <Button size="sm" variant="ghost" asChild>
                     <a href={`tel:${h.phone}`}>{h.phone}</a>

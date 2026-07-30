@@ -67,8 +67,9 @@ function Admin() {
   });
 
   const rows = [
-    ...pending.data!.hospitals.map((h) => ({ ...h, table: "hospitals" as const })),
-  ].concat(pending.data?.banks.map((b) => ({ ...b, table: "blood_banks" as const })) ?? []);
+    ...(pending.data?.hospitals.map((h) => ({ ...h, table: "hospitals" as const })) ?? []),
+    ...(pending.data?.banks.map((b) => ({ ...b, table: "blood_banks" as const })) ?? []),
+  ];
 
   return (
     <div className="space-y-6">

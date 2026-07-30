@@ -52,7 +52,9 @@ function Dashboard() {
     queryFn: async () => {
       const { data } = await supabase
         .from("emergency_requests")
-        .select("id, blood_type, units_needed, urgency, needed_by, created_at, hospitals(name, district)")
+        .select(
+          "id, blood_type, units_needed, urgency, needed_by, created_at, hospitals(name, district)",
+        )
         .eq("status", "open")
         .order("created_at", { ascending: false })
         .limit(5);

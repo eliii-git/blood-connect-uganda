@@ -14,7 +14,10 @@ export const Route = createFileRoute("/_authenticated/messages")({
   head: () => ({
     meta: [
       { title: "Messages | BloodNet+ Uganda" },
-      { name: "description", content: "Real-time coordination chat between donors and facilities." },
+      {
+        name: "description",
+        content: "Real-time coordination chat between donors and facilities.",
+      },
       { property: "og:title", content: "Messages | BloodNet+ Uganda" },
       { property: "og:description", content: "Real-time coordination chat on BloodNet+." },
     ],
@@ -97,7 +100,7 @@ function Messages() {
                 activeChat === c.id ? "border-primary bg-accent" : "border-border"
               }`}
             >
-              {c.title ?? "Coordination chat"}
+              {c.subject ?? "Coordination chat"}
             </button>
           ))}
           {chats.isSuccess && !chats.data?.length && (

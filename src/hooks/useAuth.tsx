@@ -48,6 +48,7 @@ export type AccountContext = {
     status: string;
   } | null;
   donorId: string | null;
+  donorAvailable: boolean | null;
   hospitalId: string | null;
   hospitalName: string | null;
   bloodBankId: string | null;
@@ -68,7 +69,7 @@ export function useAccount() {
       const [roleRes, profileRes, donorRes, hospitalRes, bankRes] = await Promise.all([
         supabase.from("user_roles").select("role").eq("user_id", uid).maybeSingle(),
         supabase.from("profiles").select("*").eq("id", uid).maybeSingle(),
-        supabase.from("donors").select("id").eq("user_id", uid).maybeSingle(),
+        supabase.from("donors").select("id, is_available").eq("user_id", uid).maybeSingle(),
         supabase.from("hospitals").select("id, name, status").eq("owner_id", uid).maybeSingle(),
         supabase.from("blood_banks").select("id, name, status").eq("owner_id", uid).maybeSingle(),
       ]);
@@ -77,6 +78,7 @@ export function useAccount() {
         role: (roleRes.data?.role as AppRole) ?? null,
         profile: (profileRes.data as AccountContext["profile"]) ?? null,
         donorId: donorRes.data?.id ?? null,
+        donorAvailable: donorRes.data?.is_available ?? null,
         hospitalId: hospitalRes.data?.id ?? null,
         hospitalName: hospitalRes.data?.name ?? null,
         bloodBankId: bankRes.data?.id ?? null,

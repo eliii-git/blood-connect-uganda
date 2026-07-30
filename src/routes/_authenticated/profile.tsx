@@ -36,7 +36,9 @@ function Profile() {
       setFullName(account.data.profile.full_name ?? "");
       setPhone(account.data.profile.phone ?? "");
     }
-    if (account.data?.donor) setAvailable(account.data.donor.is_available);
+    if (account.data?.donorAvailable !== null && account.data?.donorAvailable !== undefined) {
+      setAvailable(account.data.donorAvailable);
+    }
   }, [account.data]);
 
   const save = useMutation({

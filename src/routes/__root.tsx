@@ -83,15 +83,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "BloodNet+ Uganda" },
       {
         name: "description",
-        content:
-          "BloodNet+ connects donors, hospitals and blood banks across Uganda in real time.",
+        content: "BloodNet+ connects donors, hospitals and blood banks across Uganda in real time.",
       },
       { name: "author", content: "BloodNet+" },
       { property: "og:title", content: "BloodNet+ Uganda" },
       {
         property: "og:description",
-        content:
-          "BloodNet+ connects donors, hospitals and blood banks across Uganda in real time.",
+        content: "BloodNet+ connects donors, hospitals and blood banks across Uganda in real time.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

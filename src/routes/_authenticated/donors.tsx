@@ -113,7 +113,9 @@ function DonorNetwork() {
                 <p className="text-xs text-muted-foreground">
                   {donor.city}, {donor.district} &middot; {donor.total_donations} donations
                 </p>
-                <p className="mt-1 text-xs text-muted-foreground">{match.reasons.join(" \u00b7 ")}</p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {match.reasons.join(" \u00b7 ")}
+                </p>
               </div>
               <div className="text-right">
                 <p className="font-display text-xl font-bold text-primary">{match.score}%</p>

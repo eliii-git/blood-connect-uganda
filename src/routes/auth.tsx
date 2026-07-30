@@ -107,9 +107,7 @@ function AuthPage() {
           <CardHeader>
             <Tabs
               value={mode}
-              onValueChange={(v) =>
-                navigate({ to: "/auth", search: { mode: v as "signin" } })
-              }
+              onValueChange={(v) => navigate({ to: "/auth", search: { mode: v as "signin" } })}
             >
               <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="signin">Sign in</TabsTrigger>
