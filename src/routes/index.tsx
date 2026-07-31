@@ -135,7 +135,7 @@ function Landing() {
             <Badge className="mb-5 border-0 bg-white/15 text-primary-foreground backdrop-blur">
               <MapPin className="mr-1 size-3" /> Built for Uganda &middot; East Africa Time
             </Badge>
-            <BrandLogo size="lg" className="mb-4 text-primary-foreground" />
+            <BrandLogo size="lg" className="mb-4 flex text-primary-foreground" />
             <h1 className="text-4xl font-extrabold leading-[1.05] md:text-6xl">
               Compatible blood, found in minutes &mdash; not hours.
             </h1>
