@@ -20,6 +20,7 @@ import { Route as AuthenticatedDirectoryRouteImport } from './routes/_authentica
 import { Route as AuthenticatedDonorsRouteImport } from './routes/_authenticated/donors'
 import { Route as AuthenticatedEmergenciesRouteImport } from './routes/_authenticated/emergencies'
 import { Route as AuthenticatedInventoryRouteImport } from './routes/_authenticated/inventory'
+import { Route as AuthenticatedLocatorRouteImport } from './routes/_authenticated/locator'
 import { Route as AuthenticatedMessagesRouteImport } from './routes/_authenticated/messages'
 import { Route as AuthenticatedNotificationsRouteImport } from './routes/_authenticated/notifications'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
@@ -80,6 +81,11 @@ const AuthenticatedInventoryRoute = AuthenticatedInventoryRouteImport.update({
   path: '/inventory',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedLocatorRoute = AuthenticatedLocatorRouteImport.update({
+  id: '/locator',
+  path: '/locator',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedMessagesRoute = AuthenticatedMessagesRouteImport.update({
   id: '/messages',
   path: '/messages',
@@ -108,6 +114,7 @@ export interface FileRoutesByFullPath {
   '/donors': typeof AuthenticatedDonorsRoute
   '/emergencies': typeof AuthenticatedEmergenciesRoute
   '/inventory': typeof AuthenticatedInventoryRoute
+  '/locator': typeof AuthenticatedLocatorRoute
   '/messages': typeof AuthenticatedMessagesRoute
   '/notifications': typeof AuthenticatedNotificationsRoute
   '/profile': typeof AuthenticatedProfileRoute
@@ -123,6 +130,7 @@ export interface FileRoutesByTo {
   '/donors': typeof AuthenticatedDonorsRoute
   '/emergencies': typeof AuthenticatedEmergenciesRoute
   '/inventory': typeof AuthenticatedInventoryRoute
+  '/locator': typeof AuthenticatedLocatorRoute
   '/messages': typeof AuthenticatedMessagesRoute
   '/notifications': typeof AuthenticatedNotificationsRoute
   '/profile': typeof AuthenticatedProfileRoute
@@ -140,6 +148,7 @@ export interface FileRoutesById {
   '/_authenticated/donors': typeof AuthenticatedDonorsRoute
   '/_authenticated/emergencies': typeof AuthenticatedEmergenciesRoute
   '/_authenticated/inventory': typeof AuthenticatedInventoryRoute
+  '/_authenticated/locator': typeof AuthenticatedLocatorRoute
   '/_authenticated/messages': typeof AuthenticatedMessagesRoute
   '/_authenticated/notifications': typeof AuthenticatedNotificationsRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
@@ -157,6 +166,7 @@ export interface FileRouteTypes {
     | '/donors'
     | '/emergencies'
     | '/inventory'
+    | '/locator'
     | '/messages'
     | '/notifications'
     | '/profile'
@@ -172,6 +182,7 @@ export interface FileRouteTypes {
     | '/donors'
     | '/emergencies'
     | '/inventory'
+    | '/locator'
     | '/messages'
     | '/notifications'
     | '/profile'
@@ -188,6 +199,7 @@ export interface FileRouteTypes {
     | '/_authenticated/donors'
     | '/_authenticated/emergencies'
     | '/_authenticated/inventory'
+    | '/_authenticated/locator'
     | '/_authenticated/messages'
     | '/_authenticated/notifications'
     | '/_authenticated/profile'
@@ -279,6 +291,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedInventoryRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/locator': {
+      id: '/_authenticated/locator'
+      path: '/locator'
+      fullPath: '/locator'
+      preLoaderRoute: typeof AuthenticatedLocatorRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/messages': {
       id: '/_authenticated/messages'
       path: '/messages'
@@ -311,6 +330,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDonorsRoute: typeof AuthenticatedDonorsRoute
   AuthenticatedEmergenciesRoute: typeof AuthenticatedEmergenciesRoute
   AuthenticatedInventoryRoute: typeof AuthenticatedInventoryRoute
+  AuthenticatedLocatorRoute: typeof AuthenticatedLocatorRoute
   AuthenticatedMessagesRoute: typeof AuthenticatedMessagesRoute
   AuthenticatedNotificationsRoute: typeof AuthenticatedNotificationsRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
@@ -324,6 +344,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDonorsRoute: AuthenticatedDonorsRoute,
   AuthenticatedEmergenciesRoute: AuthenticatedEmergenciesRoute,
   AuthenticatedInventoryRoute: AuthenticatedInventoryRoute,
+  AuthenticatedLocatorRoute: AuthenticatedLocatorRoute,
   AuthenticatedMessagesRoute: AuthenticatedMessagesRoute,
   AuthenticatedNotificationsRoute: AuthenticatedNotificationsRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
