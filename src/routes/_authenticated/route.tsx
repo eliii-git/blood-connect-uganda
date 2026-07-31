@@ -5,16 +5,20 @@ import {
   Bell,
   Building2,
   CalendarClock,
+  Compass,
   Droplets,
   LayoutDashboard,
   LogOut,
   MessageSquare,
   ShieldCheck,
+  Siren,
   UserRound,
   Users,
 } from "lucide-react";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
+import { BrandLogo } from "@/components/brand-logo";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -45,6 +49,18 @@ const NAV: NavItem[] = [
     label: "Emergencies",
     icon: Ambulance,
     roles: ["donor", "hospital", "blood_bank", "admin"],
+  },
+  {
+    to: "/sos",
+    label: "SOS broadcast",
+    icon: Siren,
+    roles: ["donor", "hospital", "blood_bank", "admin"],
+  },
+  {
+    to: "/locator",
+    label: "AI donor locator",
+    icon: Compass,
+    roles: ["hospital", "blood_bank", "admin"],
   },
   {
     to: "/donors",
@@ -130,6 +146,35 @@ function AuthenticatedLayout() {
     };
   }, [user, queryClient]);
 
+  // Network-wide SOS alerts surface instantly, wherever the user is.
+  useEffect(() => {
+    if (!user) return;
+    const channel = supabase
+      .channel(`sos-${user.id}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "notifications",
+          filter: `user_id=eq.${user.id}`,
+        },
+        (payload) => {
+          const row = payload.new as { kind?: string; title?: string; body?: string };
+          if (row.kind !== "sos") return;
+          toast.error(row.title ?? "SOS alert", {
+            description: row.body,
+            duration: 15000,
+            action: { label: "Respond", onClick: () => navigate({ to: "/emergencies" }) },
+          });
+        },
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [user, navigate]);
+
   async function signOut() {
     await queryClient.cancelQueries();
     queryClient.clear();
@@ -143,10 +188,7 @@ function AuthenticatedLayout() {
     <div className="flex min-h-screen bg-background">
       <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col bg-sidebar text-sidebar-foreground md:flex">
         <Link to="/" className="flex h-16 items-center gap-2 px-5 font-display text-lg font-bold">
-          <span className="flex size-8 items-center justify-center rounded-xl bg-gradient-primary text-primary-foreground">
-            <Droplets className="size-4" />
-          </span>
-          BloodNet+
+          <BrandLogo size="sm" />
         </Link>
         <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4" aria-label="Main">
           {account.isLoading
@@ -191,8 +233,8 @@ function AuthenticatedLayout() {
 
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="sticky top-0 z-20 flex h-14 items-center gap-3 border-b border-border bg-background/85 px-4 backdrop-blur md:hidden">
-          <Link to="/dashboard" className="font-display font-bold">
-            BloodNet+
+          <Link to="/dashboard">
+            <BrandLogo size="sm" />
           </Link>
           <Button variant="ghost" size="sm" className="ml-auto" onClick={signOut}>
             <LogOut className="size-4" />

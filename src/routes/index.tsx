@@ -17,6 +17,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { BloodDrop, BrandLogo } from "@/components/brand-logo";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { UGANDA_DISTRICTS } from "@/lib/uganda";
@@ -68,8 +69,8 @@ const FEATURES = [
   },
   {
     icon: Sparkles,
-    title: "Smart matching",
-    body: "Every donor is scored 0-100 on compatibility, distance, road travel time, availability and eligibility window.",
+    title: "AI donor locator",
+    body: "Donors are scored 0-100 on compatibility, distance and eligibility, then an AI coordinator tells dispatch exactly who to call first.",
   },
   {
     icon: Droplets,
@@ -78,8 +79,8 @@ const FEATURES = [
   },
   {
     icon: ShieldCheck,
-    title: "Verified network",
-    body: "Administrators approve every hospital and blood bank. Row-level security keeps each role inside its own data.",
+    title: "SOS broadcast",
+    body: "One tap sends a critical alert to every donor, blood bank and hospital in the country \u2014 fully audit-logged.",
   },
 ];
 
@@ -91,11 +92,8 @@ function Landing() {
     <main className="min-h-screen bg-background">
       <header className="sticky top-0 z-30 glass">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
-          <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold">
-            <span className="flex size-8 items-center justify-center rounded-xl bg-gradient-primary text-primary-foreground">
-              <Droplets className="size-4" />
-            </span>
-            BloodNet<span className="text-primary">+</span>
+          <Link to="/" className="flex items-center">
+            <BrandLogo size="sm" />
           </Link>
           <nav className="flex items-center gap-2">
             <Button asChild variant="ghost" size="sm">
@@ -116,6 +114,18 @@ function Landing() {
       </header>
 
       <section className="relative overflow-hidden bg-hero text-primary-foreground">
+        <motion.div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-24 top-10 size-80 rounded-full bg-primary/30 blur-3xl"
+          animate={{ scale: [1, 1.15, 1], opacity: [0.45, 0.75, 0.45] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-16 bottom-0 size-72 rounded-full bg-accent/25 blur-3xl"
+          animate={{ scale: [1.1, 1, 1.1], opacity: [0.35, 0.6, 0.35] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+        />
         <div className="mx-auto grid max-w-6xl gap-10 px-5 py-20 md:grid-cols-[1.15fr_0.85fr] md:py-28">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -125,6 +135,7 @@ function Landing() {
             <Badge className="mb-5 border-0 bg-white/15 text-primary-foreground backdrop-blur">
               <MapPin className="mr-1 size-3" /> Built for Uganda &middot; East Africa Time
             </Badge>
+            <BrandLogo size="lg" className="mb-4 flex text-primary-foreground" />
             <h1 className="text-4xl font-extrabold leading-[1.05] md:text-6xl">
               Compatible blood, found in minutes &mdash; not hours.
             </h1>
@@ -163,8 +174,8 @@ function Landing() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="glass rounded-3xl p-6 text-foreground"
           >
-            <p className="font-display text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-              Live emergency feed
+            <p className="flex items-center gap-2 font-display text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+              <BloodDrop className="h-4 w-3" /> Live emergency feed
             </p>
             <LivePreview />
           </motion.div>
@@ -185,8 +196,9 @@ function Landing() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.07 }}
+              whileHover={{ y: -6 }}
             >
-              <Card className="h-full border-border/60">
+              <Card className="h-full border-border/60 transition-shadow hover:surface-lift">
                 <CardContent className="pt-6">
                   <span className="mb-4 flex size-10 items-center justify-center rounded-xl bg-gradient-accent text-accent-foreground">
                     <feature.icon className="size-5" />
@@ -214,7 +226,12 @@ function Landing() {
       </section>
 
       <section className="mx-auto max-w-4xl px-5 py-20 text-center">
-        <HeartPulse className="mx-auto size-10 text-primary" />
+        <motion.div
+          animate={{ scale: [1, 1.12, 1] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <HeartPulse className="mx-auto size-10 text-primary" />
+        </motion.div>
         <h2 className="mt-5 text-3xl font-bold md:text-4xl">Every unit is three lives.</h2>
         <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
           Join thousands of Ugandans making blood available where and when it is needed.

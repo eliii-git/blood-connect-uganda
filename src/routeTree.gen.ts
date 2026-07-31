@@ -20,9 +20,11 @@ import { Route as AuthenticatedDirectoryRouteImport } from './routes/_authentica
 import { Route as AuthenticatedDonorsRouteImport } from './routes/_authenticated/donors'
 import { Route as AuthenticatedEmergenciesRouteImport } from './routes/_authenticated/emergencies'
 import { Route as AuthenticatedInventoryRouteImport } from './routes/_authenticated/inventory'
+import { Route as AuthenticatedLocatorRouteImport } from './routes/_authenticated/locator'
 import { Route as AuthenticatedMessagesRouteImport } from './routes/_authenticated/messages'
 import { Route as AuthenticatedNotificationsRouteImport } from './routes/_authenticated/notifications'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedSosRouteImport } from './routes/_authenticated/sos'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -80,6 +82,11 @@ const AuthenticatedInventoryRoute = AuthenticatedInventoryRouteImport.update({
   path: '/inventory',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedLocatorRoute = AuthenticatedLocatorRouteImport.update({
+  id: '/locator',
+  path: '/locator',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedMessagesRoute = AuthenticatedMessagesRouteImport.update({
   id: '/messages',
   path: '/messages',
@@ -96,6 +103,11 @@ const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedSosRoute = AuthenticatedSosRouteImport.update({
+  id: '/sos',
+  path: '/sos',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -108,9 +120,11 @@ export interface FileRoutesByFullPath {
   '/donors': typeof AuthenticatedDonorsRoute
   '/emergencies': typeof AuthenticatedEmergenciesRoute
   '/inventory': typeof AuthenticatedInventoryRoute
+  '/locator': typeof AuthenticatedLocatorRoute
   '/messages': typeof AuthenticatedMessagesRoute
   '/notifications': typeof AuthenticatedNotificationsRoute
   '/profile': typeof AuthenticatedProfileRoute
+  '/sos': typeof AuthenticatedSosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -123,9 +137,11 @@ export interface FileRoutesByTo {
   '/donors': typeof AuthenticatedDonorsRoute
   '/emergencies': typeof AuthenticatedEmergenciesRoute
   '/inventory': typeof AuthenticatedInventoryRoute
+  '/locator': typeof AuthenticatedLocatorRoute
   '/messages': typeof AuthenticatedMessagesRoute
   '/notifications': typeof AuthenticatedNotificationsRoute
   '/profile': typeof AuthenticatedProfileRoute
+  '/sos': typeof AuthenticatedSosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -140,9 +156,11 @@ export interface FileRoutesById {
   '/_authenticated/donors': typeof AuthenticatedDonorsRoute
   '/_authenticated/emergencies': typeof AuthenticatedEmergenciesRoute
   '/_authenticated/inventory': typeof AuthenticatedInventoryRoute
+  '/_authenticated/locator': typeof AuthenticatedLocatorRoute
   '/_authenticated/messages': typeof AuthenticatedMessagesRoute
   '/_authenticated/notifications': typeof AuthenticatedNotificationsRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/_authenticated/sos': typeof AuthenticatedSosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -157,9 +175,11 @@ export interface FileRouteTypes {
     | '/donors'
     | '/emergencies'
     | '/inventory'
+    | '/locator'
     | '/messages'
     | '/notifications'
     | '/profile'
+    | '/sos'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -172,9 +192,11 @@ export interface FileRouteTypes {
     | '/donors'
     | '/emergencies'
     | '/inventory'
+    | '/locator'
     | '/messages'
     | '/notifications'
     | '/profile'
+    | '/sos'
   id:
     | '__root__'
     | '/'
@@ -188,9 +210,11 @@ export interface FileRouteTypes {
     | '/_authenticated/donors'
     | '/_authenticated/emergencies'
     | '/_authenticated/inventory'
+    | '/_authenticated/locator'
     | '/_authenticated/messages'
     | '/_authenticated/notifications'
     | '/_authenticated/profile'
+    | '/_authenticated/sos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -279,6 +303,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedInventoryRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/locator': {
+      id: '/_authenticated/locator'
+      path: '/locator'
+      fullPath: '/locator'
+      preLoaderRoute: typeof AuthenticatedLocatorRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/messages': {
       id: '/_authenticated/messages'
       path: '/messages'
@@ -300,6 +331,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProfileRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/sos': {
+      id: '/_authenticated/sos'
+      path: '/sos'
+      fullPath: '/sos'
+      preLoaderRoute: typeof AuthenticatedSosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -311,9 +349,11 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDonorsRoute: typeof AuthenticatedDonorsRoute
   AuthenticatedEmergenciesRoute: typeof AuthenticatedEmergenciesRoute
   AuthenticatedInventoryRoute: typeof AuthenticatedInventoryRoute
+  AuthenticatedLocatorRoute: typeof AuthenticatedLocatorRoute
   AuthenticatedMessagesRoute: typeof AuthenticatedMessagesRoute
   AuthenticatedNotificationsRoute: typeof AuthenticatedNotificationsRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedSosRoute: typeof AuthenticatedSosRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -324,9 +364,11 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDonorsRoute: AuthenticatedDonorsRoute,
   AuthenticatedEmergenciesRoute: AuthenticatedEmergenciesRoute,
   AuthenticatedInventoryRoute: AuthenticatedInventoryRoute,
+  AuthenticatedLocatorRoute: AuthenticatedLocatorRoute,
   AuthenticatedMessagesRoute: AuthenticatedMessagesRoute,
   AuthenticatedNotificationsRoute: AuthenticatedNotificationsRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+  AuthenticatedSosRoute: AuthenticatedSosRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
