@@ -54,7 +54,7 @@ const NAV: NavItem[] = [
     to: "/sos",
     label: "SOS broadcast",
     icon: Siren,
-    roles: ["donor", "hospital", "blood_bank", "admin"],
+    roles: ["hospital"],
   },
   {
     to: "/locator",

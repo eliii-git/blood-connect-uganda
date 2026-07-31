@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Loader2, Radio, Siren } from "lucide-react";
 import { useState } from "react";
@@ -39,6 +39,20 @@ export const Route = createFileRoute("/_authenticated/sos")({
       },
     ],
   }),
+  beforeLoad: async () => {
+    const { data, error } = await supabase.auth.getUser();
+    if (error || !data.user) throw redirect({ to: "/auth", search: { mode: "signin" } });
+
+    const { data: roleRow } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", data.user.id)
+      .maybeSingle();
+
+    if (roleRow?.role !== "hospital") {
+      throw redirect({ to: "/dashboard" });
+    }
+  },
   component: SosPage,
 });
 
