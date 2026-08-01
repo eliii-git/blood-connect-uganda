@@ -103,7 +103,6 @@ function SosPage() {
         .single();
       if (error) throw error;
 
-      // Alert every account on the network: donors, blood banks and hospitals.
       const { data: everyone } = await supabase.from("profiles").select("id");
       const hospitalName = account.data?.hospitalName ?? "A hospital";
       if (everyone?.length) {

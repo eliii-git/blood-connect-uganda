@@ -122,7 +122,6 @@ function AuthenticatedLayout() {
     },
   });
 
-  // Live notification stream for the signed-in user.
   useEffect(() => {
     if (!user) return;
     const channel = supabase
@@ -146,7 +145,6 @@ function AuthenticatedLayout() {
     };
   }, [user, queryClient]);
 
-  // Network-wide SOS alerts surface instantly, wherever the user is.
   useEffect(() => {
     if (!user) return;
     const channel = supabase

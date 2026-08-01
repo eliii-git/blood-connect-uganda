@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
-/** Live blood drop used in place of the second "O" in BLOOD. */
 export function BloodDrop({
   className,
   animate = true,
