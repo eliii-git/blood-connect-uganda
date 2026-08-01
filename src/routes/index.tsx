@@ -31,11 +31,11 @@ export const Route = createFileRoute("/")({
         content:
           "Find compatible blood in minutes. BloodNet+ links donors, hospitals and blood banks across Kampala, Gulu, Mbarara and every Ugandan district.",
       },
-      { property: "og:title", content: "BloodNet+ | Uganda's blood donation network" },
+      { property: "og:title", content: "BloodNet+ | Uganda's real-time blood donation network" },
       {
         property: "og:description",
         content:
-          "Real-time emergency blood matching for Ugandan hospitals, blood banks and donors.",
+          "Find compatible blood in minutes. BloodNet+ links donors, hospitals and blood banks across Kampala, Gulu, Mbarara and every Ugandan district.",
       },
     ],
   }),
