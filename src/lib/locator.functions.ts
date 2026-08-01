@@ -3,7 +3,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { generateText } from "ai";
 import { z } from "zod";
 
-import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
+import { createAppAiGatewayProvider } from "@/lib/ai-gateway.server";
 import { computeMatch, distanceKm, type BloodType } from "@/lib/uganda";
 
 const LocateInput = z.object({
@@ -55,10 +55,10 @@ export const locateDonors = createServerFn({ method: "POST" })
 
     let briefing =
       "AI briefing unavailable right now — the ranked list below still uses the full matching engine.";
-    const key = process.env.LOVABLE_API_KEY;
+    const key = process.env.BLOODNET_API_KEY;
     if (key && ranked.length) {
       try {
-        const gateway = createLovableAiGatewayProvider(key);
+        const gateway = createAppAiGatewayProvider(key);
         const summary = ranked
           .slice(0, 8)
           .map(

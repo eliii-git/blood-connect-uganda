@@ -706,15 +706,7 @@ Every role (Donor, Hospital, Blood Bank, and Admin) must have a complete, workin
 
 The application should be polished enough for a university capstone, hackathon, investor presentation, or deployment after integrating the external APIs.
 
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/394eec0c-e94b-416b-9dc4-8a5934b939c2).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+This project is built and maintained as an open-source healthcare platform.
 
 ## Development
 

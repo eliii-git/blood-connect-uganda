@@ -1,9 +1,9 @@
 import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
 
-export function createLovableAiGatewayProvider(apiKey: string) {
+export function createAppAiGatewayProvider(apiKey: string) {
   return createOpenAICompatible({
-    name: "lovable-ai-gateway",
-    baseURL: "https://ai.gateway.lovable.dev/v1",
-    headers: { "Lovable-API-Key": apiKey },
+    name: "app-ai-gateway",
+    baseURL: "https://ai.gateway.bloodnet.plus/v1",
+    headers: { "X-App-API-Key": apiKey },
   });
 }
