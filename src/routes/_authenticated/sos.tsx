@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { useAccount, useAuth } from "@/hooks/useAuth";
+import { useAccount } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { broadcastSos } from "@/lib/sos.functions";
 import { BLOOD_TYPES, formatEAT, timeLeft, type BloodType } from "@/lib/uganda";
