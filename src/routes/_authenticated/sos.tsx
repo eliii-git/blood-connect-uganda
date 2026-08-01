@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Loader2, Radio, Siren } from "lucide-react";
@@ -19,8 +20,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { useAccount, useAuth } from "@/hooks/useAuth";
+import { useAccount } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
+import { broadcastSos } from "@/lib/sos.functions";
 import { BLOOD_TYPES, formatEAT, timeLeft, type BloodType } from "@/lib/uganda";
 
 export const Route = createFileRoute("/_authenticated/sos")({
@@ -58,8 +60,8 @@ export const Route = createFileRoute("/_authenticated/sos")({
 
 function SosPage() {
   const account = useAccount();
-  const { user } = useAuth();
   const qc = useQueryClient();
+  const sendSos = useServerFn(broadcastSos);
   const isHospital = account.data?.role === "hospital" && !!account.data?.hospitalId;
 
   const [bloodType, setBloodType] = useState<BloodType>("O-");
@@ -86,45 +88,16 @@ function SosPage() {
     mutationFn: async () => {
       if (!isHospital) throw new Error("Only verified hospitals can raise an SOS");
       if (condition.trim().length < 3) throw new Error("Describe the emergency");
-
-      const { data: request, error } = await supabase
-        .from("emergency_requests")
-        .insert({
-          hospital_id: account.data!.hospitalId,
-          created_by: user!.id,
-          blood_type: bloodType,
-          units_needed: Math.max(1, Number(units) || 1),
-          patient_condition: condition.trim(),
-          urgency: "critical",
+      const result = await sendSos({
+        data: {
+          bloodType,
+          units: Math.max(1, Number(units) || 1),
+          condition: condition.trim(),
+          hours: Math.max(1, Number(hours) || 1),
           notes: notes.trim() || null,
-          needed_by: new Date(Date.now() + Number(hours) * 3600_000).toISOString(),
-        })
-        .select("id")
-        .single();
-      if (error) throw error;
-
-      const { data: everyone } = await supabase.from("profiles").select("id");
-      const hospitalName = account.data?.hospitalName ?? "A hospital";
-      if (everyone?.length) {
-        await supabase.from("notifications").insert(
-          everyone.map((p) => ({
-            user_id: p.id,
-            title: `SOS: ${bloodType} blood needed at ${hospitalName}`,
-            body: `${units} units within ${hours}h. ${condition.trim()}`,
-            kind: "sos",
-            link: "/emergencies",
-          })),
-        );
-      }
-
-      await supabase.from("audit_logs").insert({
-        actor_id: user!.id,
-        action: "sos.broadcast",
-        entity_type: "emergency_request",
-        entity_id: request.id,
-        meta: { blood_type: bloodType, units_needed: units, recipients: everyone?.length ?? 0 },
+        },
       });
-      return everyone?.length ?? 0;
+      return result.recipients;
     },
     onSuccess: (count) => {
       toast.success(`SOS broadcast to ${count} accounts across Uganda`);
