@@ -28,10 +28,6 @@ export function BloodDrop({
         d="M12 0.6c4.4 5.6 10.6 11.4 10.6 17.6A10.6 10.6 0 0 1 1.4 18.2C1.4 12 7.6 6.2 12 0.6Z"
         fill="url(#bn-drop)"
       />
-      <g transform="translate(16.6 2.4)">
-        <rect x="-0.8" y="-3.6" width="1.6" height="7.2" rx="0.6" fill="oklch(0.9 0.15 85)" />
-        <rect x="-3.6" y="-0.8" width="7.2" height="1.6" rx="0.6" fill="oklch(0.9 0.15 85)" />
-      </g>
       <ellipse
         cx="8.4"
         cy="19"
@@ -71,7 +67,7 @@ export function BrandLogo({
           animate={animate}
         />
         D
-        <span className="text-primary">NET+</span>
+        <span className="text-primary">NET</span><span style={{ color: "oklch(0.9 0.15 85)" }}>+</span>
       </span>
       <span className="sr-only">BloodNet+</span>
     </span>
